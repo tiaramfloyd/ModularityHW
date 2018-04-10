@@ -1,0 +1,23 @@
+---
+title: "ModularityHW"
+author: "Tiara Floyd"
+date: "4/10/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+##Data Import
+```{r dataimport, include=FALSE}
+Temp <- readRDS("/Users/tiarafloyd/Desktop/USAAnnualTemp1950_2008.rds")
+Pcpn <- readRDS("/Users/tiarafloyd/Desktop/USAAnnualPcpn1950_2008.rds")
+```
+##Data Cleaning
+```{r, datacleaning, include=FALSE}
+#throw out weather stations that have fewer than fewer years of data 
+minlen <- 40
+nna <- function()
+PcpnAggData <- aggregate(x = Temp$data, by = Temp[,c("lat", "lon")],FUN = length)
+```
+##Data Analysis
