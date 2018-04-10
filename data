@@ -1,0 +1,2 @@
+Temp <- readRDS("/Users/tiarafloyd/Desktop/USAAnnualTemp1950_2008.rds")
+Pcpn <- readRDS("/Users/tiarafloyd/Desktop/USAAnnualPcpn1950_2008.rds")
