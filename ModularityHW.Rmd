@@ -4,20 +4,31 @@ author: "Tiara Floyd"
 date: "4/10/2018"
 output: html_document
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ##Data Import
 ```{r dataimport, include=FALSE}
-Temp <- readRDS("/Users/tiarafloyd/Desktop/USAAnnualTemp1950_2008.rds")
+Temp <- readRDS("/Users/tiarafloyd/Desktop/USAAnnualTemp1950_2008.rds") 
 Pcpn <- readRDS("/Users/tiarafloyd/Desktop/USAAnnualPcpn1950_2008.rds")
 ```
 ##Data Cleaning
 ```{r, datacleaning, include=FALSE}
-#throw out weather stations that have fewer than fewer years of data 
+#throw out weather stations that have fewer than 40 years of data
 minlen <- 40
-nna <- function()
-PcpnAggData <- aggregate(x = Temp$data, by = Temp[,c("lat", "lon")],FUN = length)
+Temp <- na.omit(Temp)
+Pcpn <- na.omit(Pcpn)
+TempAggData <- aggregate(x = Temp$data, by = Temp[,c("name", "state")],FUN = length)
+PcpnAggData <- aggregate(x = Pcpn$data, by = Pcpn[,c("name", "year", "state", "data")],FUN = length)
+```
+#Creating Functions
+```{r, creatingfunctions, include=FALSE}
+wdat <- function(df, x = data, minlen){
+  #Remove NAs from data frame
+  df <- na.omit(df)
+  #Currently x = data
+  agg <- aggregate(x = df[,x], by = df[,c("name", "state")],FUN = length)
+  crater <- agg[agg$x >= minlen, ]
+}
 ```
 ##Data Analysis
